@@ -18,29 +18,36 @@ const users = new mongoose.Schema({
 
 
 //   Hash the plain text password given before you save a user to the database
-users.pre('save', async function() {
+users.pre('save', async function(user) {
     this.password = await bcrypt.hash(this.password, 5);
   });
 
 
   //   Method to authenticate a user using the hashed password
-  users.authenticateBasic = async function(user , password){
-    foundUser = await this.findOne({username: user});
+  users.statics.authenticateBasic = async function(user , password){
+    console.log ('user', user)
+    console.log('passward', password)
+     let foundUser = await this.find({username: user});
+    // foundUser = await this.find(user);
+    console.log('foundUser', foundUser)
+
     if (foundUser) {
     let valid = bcrypt.compare(password, foundUser.password);
-    return valid ? foundUser.username : Promise.reject();
-    }else {
+    console.log('gggggggggg',foundUser[0].username)
+    return valid ? foundUser[0].username : Promise.reject();
+  }
+    else {
         Promise.reject();
     }
   }
 
 //   Method to generate a Token following a valid login
-  users.generateToken = function(user) {
-    let token = jwt.sign({ id: this._id  }, SECRET);
-    // let token = jwt.sign({ username: user.username}, SECRET);
+users.methods.generateToken = function(user) {
+  let token = jwt.sign({ id: this._id  }, SECRET);
+  // let token = jwt.sign({ username: user.username}, SECRET);
+// 
 
-
-    return token;
-  }
+  return token;
+}
 
   module.exports = mongoose.model('users', users);
