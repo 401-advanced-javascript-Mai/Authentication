@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 'use strict';
 
 const express = require('express');
@@ -33,16 +34,17 @@ app.post('/signin',basicAuth, (req, res) => {
   // console.log("kkkkkkkk", req.token)
 });
 
-app.get('/users', (req, res) => {
-  // let result=users.find({id:"5e381e3fc9ea6515e875bd81"})
-  // console.log('result',result)
-  res.status(200).json(users.find() );
-});
+// app.get('/users', (req, res) => {
+//   // let mai  = new users();
+//   // let result=users.find({id:"5e381e3fc9ea6515e875bd81"})
+//   console.log('user',users)
+//   res.status(200).send(users.schema.find({}) );
+// });
 
 module.exports = {
   server: app,
   start: port => {
     let PORT = port || process.env.PORT || 3000;
     app.listen(PORT, () => console.log('i am alive :', PORT));
-  },
+  }
 };

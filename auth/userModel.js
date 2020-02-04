@@ -34,7 +34,7 @@ users.pre('save', async function (user) {
     // console.log('foundUser', foundUser)
 
     if (foundUser) {
-    let valid = bcrypt.compare(password, foundUser.password);
+    let valid = bcrypt.compare(password, foundUser[0].password);
     // console.log('gggggggggg',foundUser[0].username)
     return valid ? foundUser[0].username : Promise.reject();
   }
@@ -44,11 +44,10 @@ users.pre('save', async function (user) {
   } 
 
 //   Method to generate a Token following a valid login
-users.statics.generateToken = function(user) {
+users.methods.generateToken = function(user) {
   let token = jwt.sign({ id: this._id  }, SECRET);
   // let token = jwt.sign({ username: user.username}, SECRET);
-// 
-
+//
   return token;
 }
 
