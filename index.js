@@ -3,7 +3,7 @@ const server = require ('./server.js');
 const mongoose = require ('mongoose');
 
 
- let MONGOOSE_URI='mongodb://localhost:27017/authdb';
+let MONGOOSE_URI='mongodb://localhost:27017/authdb';
 
 const mongooseOptions = {
   useNewUrlParser: true,
