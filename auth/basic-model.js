@@ -34,7 +34,7 @@ module.exports = (req, res, next) => {
   users.authenticateBasic(user, password)
   // console.log('[user, pass] after use', [user,password])
     .then(validUser => {
-      console.log('validUser', validUser)
+      console.log('validUser', validUser);
       req.token = generateToken(validUser);
       console.log('token:', req.token);
       next();
